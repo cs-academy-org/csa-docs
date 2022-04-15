@@ -1,6 +1,6 @@
-#Técnicas y herramientas de reconocimiento pasivo
+# Técnicas y herramientas de reconocimiento pasivo
 
-##Introducción
+## Introducción
 El Reconocimiento se considera la primera etapa de una prueba de penetración y por ende la más importante. Es la etapa que nos va a permitir recopilar información sobre nuestro objetivo y en base a esa información recopilada podemos desarrollar un plan de ataque. El reconocimiento se divide en dos etapas, Reconocimiento Pasivo y Reconocimiento Activo.
 
 
