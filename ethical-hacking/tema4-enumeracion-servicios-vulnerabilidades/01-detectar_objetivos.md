@@ -1,4 +1,4 @@
-# Como detectar objetivos en la red
+# Detectar objetivos en la red
 
 ## ping
 
