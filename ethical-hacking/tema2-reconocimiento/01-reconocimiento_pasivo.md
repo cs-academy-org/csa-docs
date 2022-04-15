@@ -208,6 +208,8 @@ ejemplo:
 
 - filetype: se utiliza para buscar cualquier tipo de extensión de archivo, por ejemplo, si desea buscar archivos pdf puede usar: 
 
+ejemplo:
+
 	filetype:pdf
 
 - inurl: es exactamente lo mismo que allinurl, pero solo es útil para una sola palabra clave, 
