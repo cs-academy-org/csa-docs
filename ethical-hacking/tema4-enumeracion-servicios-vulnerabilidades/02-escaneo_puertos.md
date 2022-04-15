@@ -51,7 +51,8 @@ NOTA: masscan usa una pila TCP / IP personalizada. Cualquier otra cosa que no se
 	nocapture = heartbleed
 	nocapture = ticketbleed
 	min-packet = 60
-	Usar un archivo de configuración personalizado
+	
+Usar un archivo de configuración personalizado
 
 	┌─[root@parrot]─[~]
 	└──╼ # masscan -c <filename>
