@@ -46,7 +46,6 @@ El comando de ayuda , como es de esperar, muestra el menú de ayuda de Meterpret
 	meterpreter > help
 	
 	Comandos básicos
-	=============
 	
 	    Descripción del comando
 	    ------- -----------
