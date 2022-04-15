@@ -14,38 +14,38 @@ En nuestro caso vamos a utilizar el comando ping para detectar objetivos en la r
 Veamos algunos ejemplos:
 - Haciendo ping a un host:
 
-	┌─[xc0d3@cs-academy]─[~]
-	└──╼ $ ping 192.168.56.104
-	PING 192.168.56.104 (192.168.56.104) 56(84) bytes of data.
-	64 bytes from 192.168.56.104: icmp_seq=1 ttl=64 time=0.349 ms
-	64 bytes from 192.168.56.104: icmp_seq=2 ttl=64 time=0.304 ms
-	64 bytes from 192.168.56.104: icmp_seq=3 ttl=64 time=0.324 ms
-	64 bytes from 192.168.56.104: icmp_seq=4 ttl=64 time=0.392 ms
-	^C
-	--- 192.168.56.104 ping statistics ---
-	4 packets transmitted, 4 received, 0% packet loss, time 3062ms
-	rtt min/avg/max/mdev = 0.304/0.342/0.392/0.032 ms
+		┌─[xc0d3@cs-academy]─[~]
+		└──╼ $ ping 192.168.56.104
+		PING 192.168.56.104 (192.168.56.104) 56(84) bytes of data.
+		64 bytes from 192.168.56.104: icmp_seq=1 ttl=64 time=0.349 ms
+		64 bytes from 192.168.56.104: icmp_seq=2 ttl=64 time=0.304 ms
+		64 bytes from 192.168.56.104: icmp_seq=3 ttl=64 time=0.324 ms
+		64 bytes from 192.168.56.104: icmp_seq=4 ttl=64 time=0.392 ms
+		^C
+		--- 192.168.56.104 ping statistics ---
+		4 packets transmitted, 4 received, 0% packet loss, time 3062ms
+		rtt min/avg/max/mdev = 0.304/0.342/0.392/0.032 ms
 
 
 - Haciendo un solo ping a un host:
 
-	┌─[xc0d3@cs-academy]─[~]
-	└──╼ $ ping -c 1 192.168.56.104
-	PING 192.168.56.104 (192.168.56.104) 56(84) bytes of data.
-	64 bytes from 192.168.56.104: icmp_seq=1 ttl=64 time=0.394 ms
-	--- 192.168.56.104 ping statistics ---
-	1 packets transmitted, 1 received, 0% packet loss, time 0ms
-	rtt min/avg/max/mdev = 0.394/0.394/0.394/0.000 ms
+		┌─[xc0d3@cs-academy]─[~]
+		└──╼ $ ping -c 1 192.168.56.104
+		PING 192.168.56.104 (192.168.56.104) 56(84) bytes of data.
+		64 bytes from 192.168.56.104: icmp_seq=1 ttl=64 time=0.394 ms
+		--- 192.168.56.104 ping statistics ---
+		1 packets transmitted, 1 received, 0% packet loss, time 0ms
+		rtt min/avg/max/mdev = 0.394/0.394/0.394/0.000 ms
 
 
 - Haciendo ping a un host que no está en linea:
 
-	┌─[xc0d3@cs-academy]─[~]
-	└──╼ $ ping -c 1 192.168.56.103
-	PING 192.168.56.103 (192.168.56.103) 56(84) bytes of data.
-	From 192.168.56.1 icmp_seq=1 Destination Host Unreachable
-	--- 192.168.56.103 ping statistics ---
-	1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+		┌─[xc0d3@cs-academy]─[~]
+		└──╼ $ ping -c 1 192.168.56.103
+		PING 192.168.56.103 (192.168.56.103) 56(84) bytes of data.
+		From 192.168.56.1 icmp_seq=1 Destination Host Unreachable
+		--- 192.168.56.103 ping statistics ---
+		1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
 
 
 Si comparamos ambas salidas, podemos llegar a la conclusión de que son totalmente distintas. Para obtener una salida mas personalizada donde solo veamos resultados positivos podemos utilizar el comando grep para filtrar, utilizando la cadena "64 bytes from", veamos un ejemplo:
