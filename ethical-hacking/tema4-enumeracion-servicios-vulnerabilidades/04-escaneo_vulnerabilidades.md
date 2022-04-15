@@ -128,16 +128,16 @@ Estaremos trabajando con esta suite en el capitulo de Pruebas de penetración en
 - Nmap y sus Scripts NSE
 Ya hemos estado trabajando con Nmap en clases anteriores para enumerar servicios y hacer escaneos de puertos, pero el poder de esta herramienta va mucho más allá de solo escanear puertos y decirnos cuales se encuentran abiertos y cerrados. Nmap tiene una serie de scripts especificos para hacer escaneos avanzados a un puerdo objetivo y detectar malas configuraciones del servicio, vulnerabilidades conocidas, obtener información extra de ese servicio e incluso realizar ataques de fuerza bruta. Estos scripts estan divididos por servicios entre los que podemos mensonar dns, http, smb, ftp, imap, mongodb, msrpc, ms-sql, mysql, ssh, entre otros, a su vez estos scripts se dividen en sub-categorías como pueden ser enum, vulns, brute, malware, form, info, entre otras, los podemos encontrar en el directorio /usr/share/nmap/scripts:
 
-	─[xc0d3@cs-academy]─[~]
-	└──╼ [★]$ ls /usr/share/nmap/scripts/
-	Display all 599 possibilities? (y or n)
-	acarsd-info.nse                         ip-geolocation-geoplugin.nse
-	address-info.nse                        ip-geolocation-ipinfodb.nse
-	afp-brute.nse                           ip-geolocation-map-bing.nse
-	afp-ls.nse                              ip-geolocation-map-google.nse
-	afp-path-vuln.nse                       ip-geolocation-map-kml.nse
-	afp-serverinfo.nse                      ip-geolocation-maxmind.nse
-	afp-showmount.nse                       ip-https-discover.nse
+		─[xc0d3@cs-academy]─[~]
+		└──╼ [★]$ ls /usr/share/nmap/scripts/
+		Display all 599 possibilities? (y or n)
+		acarsd-info.nse                         ip-geolocation-geoplugin.nse
+		address-info.nse                        ip-geolocation-ipinfodb.nse
+		afp-brute.nse                           ip-geolocation-map-bing.nse
+		afp-ls.nse                              ip-geolocation-map-google.nse
+		afp-path-vuln.nse                       ip-geolocation-map-kml.nse
+		afp-serverinfo.nse                      ip-geolocation-maxmind.nse
+		afp-showmount.nse                       ip-https-discover.nse
 	ajp-auth.nse                            ipidseq.nse
 	ajp-brute.nse                           ipmi-brute.nse
 	ajp-headers.nse                         ipmi-cipher-zero.nse
