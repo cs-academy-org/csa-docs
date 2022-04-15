@@ -252,7 +252,7 @@ cómo * un sitio web
 devolverá "cómo ..." diseñar / crear / piratear, etc ... "un sitio web".
 |: este es un operador lógico, ejemplo: |:Los "consejos" de "seguridad" mostrarán todos los sitios que contienen "seguridad" o "consejos", o ambas palabras.
 
-- - +: se utiliza para concatenar palabras, útil para detectar páginas que usan más de una clave específica.
+- +: se utiliza para concatenar palabras, útil para detectar páginas que usan más de una clave específica.
 
 ejemplo:
 
