@@ -111,6 +111,7 @@ MSFconsole está diseñada para ser de uso rápido y una de las características
 	show
 
 Poner un objectivo
+	
 	set PAYLOAD windows/shell/
 	Exp
 	msf> usar exploit/windows/smb/ms
