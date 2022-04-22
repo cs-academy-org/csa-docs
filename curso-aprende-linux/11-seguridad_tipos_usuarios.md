@@ -1,5 +1,5 @@
-Seguridad e identificación de tipos de usuario
-Introducción
+# Seguridad e identificación de tipos de usuario
+
 Esta lección se centrará en la terminología básica de las cuentas, los controles de acceso y la seguridad de los sistemas Linux locales, las herramientas de la interfaz de línea de comandos (CLI) en un sistema Linux para controles básicos de acceso de seguridad y los archivos básicos para admitir cuentas de usuarios y grupos, incluidos los utilizados para la escalada de privilegios.
 
 
@@ -12,7 +12,7 @@ Los entornos e interfaces de escritorio modernos de Linux simplifican la creaci�
 
 
 
-Cuentas
+## Cuentas
 La seguridad implica muchos conceptos, uno de los más comunes es el concepto general de controles de acceso. Antes de poder abordar los controles de acceso a los archivos, como la propiedad y los permisos, se deben comprender los conceptos básicos de las cuentas de usuario de Linux, que se dividen en varios tipos.
 
 
@@ -21,7 +21,7 @@ Cada usuario en un sistema Linux tiene una cuenta asociada que además de la inf
 
 
 
-Identificadores (UIDs/GIDs)
+## Identificadores (UIDs/GIDs)
 Los identificadores de usuario y grupo (UIDs/GIDs) son las referencias básicas y enumeradas a las cuentas. Las primeras implementaciones eran enteros limitados de 16 bits (valores de 0 a 65535), pero los sistemas del siglo XXI admiten UID y GID de 64 bits. Los usuarios y grupos se enumeran de forma independiente, por lo que la misma ID puede representar tanto un usuario como un grupo.
 
 
@@ -34,7 +34,7 @@ Por defecto en los sistemas Linux, cada usuario está asignado a un grupo con el
 
 
 
-La cuenta de superusuario
+## La cuenta de superusuario
 En Linux, la cuenta de superusuario es root, que siempre tiene UID 0. El superusuario a veces se llama administrador del sistema y tiene acceso y control ilimitados sobre el sistema, incluidos otros usuarios.
 
 
@@ -43,7 +43,7 @@ El grupo predeterminado para el superusuario tiene el GID 0 y también se denomi
 
 
 
-Cuentas de usuario estándar
+## Cuentas de usuario estándar
 Todas las cuentas que no sean root son cuentas de usuario técnicamente regulares, pero en un sistema Linux el término de cuenta de usuario coloquial a menudo significa una cuenta de usuario "regular" (sin privilegios). Por lo general, tienen las siguientes propiedades, con algunas excepciones:
 
 
@@ -81,7 +81,7 @@ En general, las cuentas del sistema no deben tener un shell de inicio de sesión
 
 
 
-Cuentas de servicio
+## Cuentas de servicio
 Las cuentas de servicio generalmente se crean cuando los servicios se instalan y configuran. Al igual que las cuentas del sistema, son para instalaciones, programas y servicios que no se ejecutarán como superusuario.
 
 
@@ -90,12 +90,12 @@ En mucha documentación, las cuentas de sistema y servicio son similares y se in
 
 
 
-Cuenta del sistema
+## Cuenta del sistema
 
 UID/GID <100 (2 dígitos) o <500-1000 (3 dígitos)
 
 
-Cuenta de servicio
+## Cuenta de servicio
 
 UID / GID> 1000 (4+ dígitos), pero no una cuenta de usuario "estándar" o "regular", una cuenta para servicios, con un UID/GID> 1000 (4+ dígitos)
 
@@ -112,20 +112,24 @@ Algunas cuentas tienen un shell de inicio de sesión, mientras que otras no tien
 
 Un usuario puede cambiar su shell de inicio de sesión utilizando el comando chsh. Por defecto, el comando se ejecuta en modo interactivo y muestra un mensaje preguntando qué shell se debe usar. La respuesta debería ser la ruta completa al binario de shell, como a continuación:
 
-$ chsh
 
-Changing the login shell for emma
-Enter the new value, or press ENTER for the default
-	Login Shell [/bin/bash]: /usr/bin/zsh
+	$ chsh
+
+	Changing the login shell for emma
+	Enter the new value, or press ENTER for the default
+		Login Shell [/bin/bash]: /usr/bin/zsh
+
+
 
 También puede ejecutar el comando en modo no interactivo, con el parámetro -s seguido de la ruta al binario, así:
 
-$ chsh -s /usr/bin/zsh
+	$ chsh -s /usr/bin/zsh
+
 La mayoría de las cuentas tienen un directorio de inicio definido. En Linux, esta suele ser la única ubicación donde esa cuenta de usuario tiene acceso de escritura garantizado, con algunas excepciones (por ejemplo, áreas del sistema de archivos temporales). Sin embargo, algunas cuentas se configuran a propósito para que no tengan acceso de escritura incluso a su propio directorio de inicio, por razones de seguridad.
 
 
 
-Obteniendo información sobre sus usuarios
+## Obteniendo información sobre sus usuarios
 Enumerar la información básica del usuario es una práctica común y cotidiana en un sistema Linux. En algunos casos, los usuarios deberán cambiar de usuario y aumentar los privilegios para completar tareas privilegiadas.
 
 
@@ -136,26 +140,28 @@ Incluso los usuarios tienen la capacidad de enumerar atributos y acceder desde l
 
 Listar la información actual de un usuario en la línea de comando es tan simple como un comando de dos letras, id. La salida variará según su ID de inicio de sesión:
 
-$ id
-uid=1024(emma) gid=1024(emma) 1024(emma),20(games),groups=10240(netusers),20480(netadmin) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+	$ id
+	uid=1024(emma) gid=1024(emma) 1024(emma),20(games),groups=10240(netusers),20480(netadmin) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
 En la lista anterior, el usuario (emma) tiene identificadores que se desglosan de la siguiente manera:
 
-1024 = ID de usuario (UID), seguido del nombre de usuario (nombre común, también conocido como nombre de inicio de sesión) entre paréntesis.
-1024 = el ID de grupo primario (GID), seguido del nombre de grupo (nombre común) entre paréntesis.
-Una lista de GID adicionales (nombres de grupo) a los que también pertenece el usuario.
+- 1024 = ID de usuario (UID), seguido del nombre de usuario (nombre común, también conocido como nombre de inicio de sesión) entre paréntesis.
+- 1024 = el ID de grupo primario (GID), seguido del nombre de grupo (nombre común) entre paréntesis.
+- Una lista de GID adicionales (nombres de grupo) a los que también pertenece el usuario.
 
 
 Enumerar la última vez que los usuarios han iniciado sesión en el sistema se realiza con el comando last:
 
-$ last
-emma     pts/3        ::1              Fri Jun 14 04:28   still logged in
-reboot   system boot  5.0.17-300.fc30. Fri Jun 14 04:03   still running
-reboot   system boot  5.0.17-300.fc30. Wed Jun  5 14:32 - 15:19  (00:46)
-reboot   system boot  5.0.17-300.fc30. Sat May 25 18:27 - 19:11  (00:43)
-reboot   system boot  5.0.16-100.fc28. Sat May 25 16:44 - 17:06  (00:21)
-reboot   system boot  5.0.9-100.fc28.x Sun May 12 14:32 - 14:46  (00:14)
-root     tty2                          Fri May 10 21:55 - 21:55  (00:00)
-	...
+	$ last
+	emma     pts/3        ::1              Fri Jun 14 04:28   still logged in
+	reboot   system boot  5.0.17-300.fc30. Fri Jun 14 04:03   still running
+	reboot   system boot  5.0.17-300.fc30. Wed Jun  5 14:32 - 15:19  (00:46)
+	reboot   system boot  5.0.17-300.fc30. Sat May 25 18:27 - 19:11  (00:43)
+	reboot   system boot  5.0.16-100.fc28. Sat May 25 16:44 - 17:06  (00:21)
+	reboot   system boot  5.0.9-100.fc28.x Sun May 12 14:32 - 14:46  (00:14)
+	root     tty2                          Fri May 10 21:55 - 21:55  (00:00)
+		...
+
 La información que figura en las columnas puede variar, pero algunas entradas notables en el listado anterior son:
 
 Un usuario (emma) inició sesión a través de la red (pseudo TTY pts/3) y todavía está conectado.
@@ -165,13 +171,15 @@ Una variante del último comando es el comando lastb, que enumera todos los últ
 
 Los comandos who y w enumeran solo los inicios de sesión activos en el sistema:
 
-$ who
-emma  pts/3        2019-06-14 04:28 (::1)
+	$ who
+	emma  pts/3        2019-06-14 04:28 (::1)
 
-$ w
- 05:43:41 up  1:40,  1 user,  load average: 0.25, 0.53, 0.51
-USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
-emma  pts/3     04:28    1:14m  0.04s  0.04s -bash
+
+	$ w
+	 05:43:41 up  1:40,  1 user,  load average: 0.25, 0.53, 0.51
+	USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+	emma  pts/3     04:28    1:14m  0.04s  0.04s -bash
+
 
 Ambos comandos enumeran parte de la misma información. Por ejemplo, un usuario (emma) ha iniciado sesión con un dispositivo pseudo TTY (pts / 3) y la hora de inicio de sesión es 04:28.
 
@@ -194,7 +202,7 @@ Ambos comandos tienen más opciones para enumerar diversa información adicional
 
 
 
-Cambio de usuarios y aumento de privilegios
+## Cambio de usuarios y aumento de privilegios
 En un mundo ideal, los usuarios nunca necesitarían escalar privilegios para completar sus tareas. El sistema siempre "simplemente funcionaría" y todo estaría configurado para varios accesos.
 
 
@@ -209,9 +217,10 @@ Sin embargo, hay comandos que permiten la escalada de privilegios cuando es nece
 
 En la mayoría de los sistemas Linux actuales, el comando su solo se usa para escalar privilegios a root, que es el usuario predeterminado si no se especifica un nombre de usuario después del nombre del comando. Si bien se puede usar para cambiar a otro usuario, no es una buena práctica: los usuarios deben iniciar sesión desde otro sistema, a través de la red o consola física o terminal en el sistema.
 
-emma ~$ su -
-Password:
-root ~#
+	emma ~$ su -
+	Password:
+	root ~#
+
 Después de ingresar la contraseña de superusuario (root), el usuario tiene un shell de superusuario (observe el # al final del símbolo del sistema) y es, para todos los efectos, el superusuario (root).
 
 
@@ -225,12 +234,14 @@ El símbolo de dólar ($) debe terminar el indicador de línea de comando para u
 Nota: Nunca cambie al superusuario (root) sin pasar el parámetro de inicio de sesión (-). A menos que el proveedor de SO o software indique explícitamente lo contrario cuando se requiere su, ejecute siempre su - con excepciones extremadamente limitadas. Los entornos de usuario pueden causar cambios y problemas de configuración no deseados cuando se usan en modo de privilegio completo como superusuario.
 ¿Cuál es el mayor problema con el uso de su para cambiar al superusuario (root)? Si la sesión de un usuario normal se ha visto comprometida, se podría capturar la contraseña de superusuario (root). Ahí es donde entra en juego "Switch User Do" (o "Superuser Do"):
 
-$ cat /sys/devices/virtual/dmi/id/board_serial
-cat: /sys/devices/virtual/dmi/id/board_serial: Permission denied
+	$ cat /sys/devices/virtual/dmi/id/board_serial
+	cat: /sys/devices/virtual/dmi/id/board_serial: Permission denied
 
-$ sudo cat /sys/devices/virtual/dmi/id/board_serial
-[sudo] password for emma:
-/6789ABC/
+
+	$ sudo cat /sys/devices/virtual/dmi/id/board_serial
+	[sudo] password for emma:
+	/6789ABC/
+
 En la lista anterior, el usuario está intentando buscar el número de serie de su placa del sistema. Sin embargo, el permiso es denegado, ya que esa información está marcada como privilegiada.
 
 
@@ -245,22 +256,22 @@ Casi todos los sistemas operativos tienen un conjunto de lugares utilizados para
 
 Los archivos principales relacionados con cuentas de usuario, atributos y control de acceso son:
 
-/etc/passwd
+- /etc/passwd
 
 Este archivo almacena información básica sobre los usuarios en el sistema, incluidos UID y GID, directorio de inicio, shell, etc. A pesar del nombre, aquí no se almacenan contraseñas.
 
 
-/etc/group
+- /etc/group
 
 Este archivo almacena información básica sobre todos los grupos de usuarios en el sistema, como el nombre del grupo y GID y miembros.
 
 
-/etc/shadow
+- /etc/shadow
 
 Aquí es donde se almacenan las contraseñas de los usuarios. Son hash, por seguridad.
 
 
-/etc/gshadow
+- /etc/gshadow
 
 Este archivo almacena información más detallada sobre los grupos, incluida una contraseña cifrada que permite a los usuarios convertirse temporalmente en un miembro del grupo, una lista de usuarios que pueden convertirse en miembros del grupo en ese momento y una lista de administradores de grupo.
 
@@ -276,12 +287,12 @@ También hay archivos relacionados con la escalada de privilegios básicos en si
 
 
 
-/etc/sudoers
+- /etc/sudoers
 
 Este archivo controla quién puede usar el comando sudo y cómo.
 
 
-/etc/sudoers.d
+- /etc/sudoers.d
 
 Este directorio puede contener archivos que complementan la configuración en el archivo sudoers.
 
@@ -293,33 +304,35 @@ Desde el punto de vista del examen LPI Linux Essentials, solo conozca la ruta y 
 Cuidado: Aunque /etc/sudoers es un archivo de texto, nunca debe editarse directamente. Si se necesitan cambios en su contenido, se deben hacer usando la utilidad visudo.
 
 
-/etc/passwd
+## /etc/passwd
 El archivo /etc/passwd se conoce comúnmente como el "archivo de contraseña". Cada línea contiene múltiples campos siempre delimitados por dos puntos (smile. A pesar del nombre, el hash de contraseña unidireccional real actualmente no se almacena en este archivo.
 
 
 
 La sintaxis típica para una línea en este archivo es:
 
-USERNAME:PASSWORD:UID:GID:GECOS:HOMEDIR:SHELL
-Donde:
-USERNAME
-El nombre de usuario aka login (nombre), como root, nobody, emma.
-PASSWORD
-Ubicación heredada del hash de contraseña. Casi siempre x, lo que indica que la contraseña está almacenada en el archivo /etc/shadow.
-UID
-ID de usuario (UID), como 0, 99, 1024.
-GID
-Default Group ID (GID), like 0, 99, 1024.
-GECOS
-Una lista CSV de información del usuario que incluye nombre, ubicación, número de teléfono. Por ejemplo: Emma Smith, 42 Douglas St, 555.555.5555
-HOMEDIR
+	USERNAME:PASSWORD:UID:GID:GECOS:HOMEDIR:SHELL
 
+Donde:
+- USERNAME
+El nombre de usuario aka login (nombre), como root, nobody, emma.
+- PASSWORD
+Ubicación heredada del hash de contraseña. Casi siempre x, lo que indica que la contraseña está almacenada en el archivo /etc/shadow.
+- UID
+ID de usuario (UID), como 0, 99, 1024.
+- GID
+Default Group ID (GID), like 0, 99, 1024.
+- GECOS
+Una lista CSV de información del usuario que incluye nombre, ubicación, número de teléfono. Por ejemplo: Emma Smith, 42 Douglas St, 555.555.5555
+- HOMEDIR
 Ruta al directorio de inicio del usuario, como /root, /home/emma, etc.
-SHELL
+- SHELL
 El shell predeterminado para este usuario, como /bin/bash, /sbin/nologin, /bin/ksh, etc..
 
 Por ejemplo, la siguiente línea describe el usuario emma:
-emma:x:1000:1000:Emma Smith,42 Douglas St,555.555.5555:/home/emma:/bin/bash
+
+	emma:x:1000:1000:Emma Smith,42 Douglas St,555.555.5555:/home/emma:/bin/bash
+
 
 Comprender el campo GECOS
 El campo GECOS contiene tres (3) o más campos, delimitados por una coma (,), también conocida como una lista de valores separados por comas (CSV). Aunque no existe un estándar obligatorio, los campos suelen estar en el siguiente orden:
@@ -327,61 +340,63 @@ El campo GECOS contiene tres (3) o más campos, delimitados por una coma (,), ta
 NAME,LOCATION,CONTACT
 Dónde:
 
-NOMBRE
+- NOMBRE
 
 es el "Nombre completo" del usuario, o el "Nombre del software" en el caso de una cuenta de servicio.
 
 
-UBICACIÓN
+- UBICACIÓN
 
 suele ser la ubicación física del usuario dentro de un edificio, número de habitación o el departamento de contacto o persona en el caso de una cuenta de servicio.
 
 
-CONTACTO
+- CONTACTO
 
 enumera información de contacto, como el número de teléfono del hogar o del trabajo.
 
 
 Los campos adicionales pueden incluir información de contacto adicional, como un número de casa o una dirección de correo electrónico. Para cambiar la información en el campo GECOS, use el comando chfn y responda las preguntas, como a continuación. Si no se proporciona un nombre de usuario después del nombre del comando, cambiará la información para el usuario actual:
 
-$ chfn
+	$ chfn
 
-Changing the user information for emma
-Enter the new value, or press ENTER for the default
-	Full Name: Emma Smith
-	Room Number []: 42
-	Work Phone []: 555.555.5555
-	Home Phone []: 555.555.6666
+	Changing the user information for emma
+	Enter the new value, or press ENTER for the default
+		Full Name: Emma Smith
+		Room Number []: 42
+		Work Phone []: 555.555.5555
+		Home Phone []: 555.555.6666
 
-/etc/group
+
+## /etc/group
 El archivo /etc/group contiene campos siempre delimitados por dos puntos (smile, que almacenan información básica sobre los grupos en el sistema. A veces se le llama el "archivo de grupo". La sintaxis para cada línea es:
 
-NAME:PASSWORD:GID:MEMBERS
+	NAME:PASSWORD:GID:MEMBERS
+
 Dónde:
 
-NAME
+- NAME
 
 es el nombre del grupo, como root, usuarios, emma, etc.
 
 
-PASSWORD
+- PASSWORD
 
 ubicación heredada de un hash de contraseña de grupo opcional. Casi siempre x, lo que indica que la contraseña (si está definida) se almacena en el archivo / etc / gshadow.
 
 
-GID
+- GID
 
 ID de grupo (GID), como 0, 99, 1024.
 
 
-MEMBERS
+- MEMBERS
 
 una lista de nombres de usuario separados por comas que son miembros del grupo, como jsmith, emma.
 
 
 El siguiente ejemplo muestra una línea que contiene información sobre el grupo adm (administradores del sistema):
 
-students:x:1023:jsmith,emma
+	students:x:1023:jsmith,emma
 
 
 
@@ -392,43 +407,44 @@ No es necesario que el usuario aparezca en el campo de miembros cuando el grupo 
 Nota: El uso de contraseñas para grupos está más allá del alcance de esta sección, sin embargo, si se define, el hash de la contraseña se almacena en el archivo /etc/gshadow. Esto también está más allá del alcance de esta sección.
 
 
-/etc/shadow
+## /etc/shadow
 La siguiente tabla enumera los atributos almacenados en el archivo /etc/shadow, comúnmente conocido como el "archivo shadow". El archivo contiene campos siempre delimitados por dos puntos (smile. Aunque el archivo tiene muchos campos, la mayoría están más allá del alcance de esta lección, aparte de los dos primeros.
 
 
 
 La sintaxis básica para una línea en este archivo es:
 
-USERNAME:PASSWORD:LASTCHANGE:MINAGE:MAXAGE:WARN:INACTIVE:EXPDATE
+	USERNAME:PASSWORD:LASTCHANGE:MINAGE:MAXAGE:WARN:INACTIVE:EXPDATE
+
 Donde:
 
-USERNAME
+- USERNAME
 El nombre de usuario (igual que en /etc/passwd), como root, nobody, emma.
 
-PASSWORD
+- PASSWORD
 Un hash unidireccional de la contraseña, incluido salt anterior. Por ejemplo: !!, !$1$01234567$ABC…​, $6$012345789ABCDEF$012…​.
 
-LASTCHANGE
+- LASTCHANGE
 Fecha del último cambio de contraseña en días desde la "época", como 17909.
 
-MINAGE
+- MINAGE
 Edad mínima de contraseña en días.
 
-MAXAGE
+- MAXAGE
 Contraseña máxima en días.
 
-WARN
+- WARN
 Período de advertencia antes de que caduque la contraseña, en días.
 
-INACTIVE
+- INACTIVE
 Antigüedad máxima de la contraseña después del vencimiento, en días.
 
-EXPDATE
+- EXPDATE
 Fecha de caducidad de la contraseña, en días desde la "época".
 
 En el siguiente ejemplo, puede ver una  del archivo /etc/shadow . Tenga en cuenta que algunos valores, como INACTIVE y EXPDATE son indefinidos
 
-emma:$6$nP532JDDogQYZF8I$bjFNh9eT1xpb9/n6pmjlIwgu7hGjH/eytSdttbmVv0MlyTMFgBIXESFNUmTo9EGxxH1OT1HGQzR0so4n1npbE0:18064:0:99999:7:::
+	emma:$6$nP532JDDogQYZF8I$bjFNh9eT1xpb9/n6pmjlIwgu7hGjH/eytSdttbmVv0MlyTMFgBIXESFNUmTo9EGxxH1OT1HGQzR0so4n1npbE0:18064:0:99999:7:::
 
 La "época" de un sistema POSIX es la medianoche (0000), hora universal coordinada (UTC), el jueves 1 de enero de 1970. La mayoría de las fechas y horas POSIX están en segundos desde "época", o en el caso del archivo /etc/shadow, días desde "época".
 
@@ -449,26 +465,24 @@ Como máximo, se requiere un método de fuerza bruta para trocear todas las comb
 
 En el archivo /etc/shadow, la contraseña puede tomar varias formas. Estos formularios generalmente incluyen lo siguiente:
 
-!!
+- !!
 Esto significa una cuenta "deshabilitada" (no es posible la autenticación), sin hash de contraseña almacenado.
 
-!$1$01234567$ABC…​
-
+- !$1$01234567$ABC…​
 Una cuenta "deshabilitada" (debido al signo de exclamación inicial), con una función hash anterior, sal de hash y cadena de hash almacenados.
 
-$1$0123456789ABC$012…​
+- $1$0123456789ABC$012…​
 Una cuenta "habilitada", con una función de hash, sal de hash y cadena de hash almacenada.
 
 La función hash, la sal hash y la cadena hash están precedidas y delimitadas por un símbolo de dólar ($). La longitud de sal de hash debe ser de entre ocho y dieciséis (8-16) caracteres. Ejemplos de los tres más comunes son los siguientes:
 
-$1$01234567$ABC…​
+- $1$01234567$ABC…​
 Una función hash de MD5 (1), con un ejemplo de longitud hash de ocho.
 
-$5$01234567ABCD$012…​
+- $5$01234567ABCD$012…​
 Una función hash de SHA256 (5), con un ejemplo de longitud hash de doce.
 
-$6$01234567ABCD$012…​
-
+- $6$01234567ABCD$012…​
 Una función hash de SHA512 (6), con un ejemplo de longitud hash de doce.
 
 
